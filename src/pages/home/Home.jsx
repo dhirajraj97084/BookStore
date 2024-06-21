@@ -2,6 +2,7 @@ import React from 'react'
 
 import Banner from '../../component/banner/Banner'
 import Layout from '../../component/layout/Layout'
+import FreeBook from '../../component/freeBook/FreeBook'
 
 
 function Home() {
@@ -9,6 +10,7 @@ function Home() {
     <Layout>
       
       <Banner/>
+      <FreeBook/>
       
     </Layout>
   )

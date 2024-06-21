@@ -1,18 +1,37 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom';
 
 function Navbar() {
+    const [sticky, setSticky] = useState(false);
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 0) {
+        setSticky(true);
+      } else {
+        setSticky(false);
+      }
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
     const navitems = (
         <>
-            <li><a>Home</a></li>
-            <li><a>Courses</a></li>
-            <li><a>Contact</a></li>
-            <li><a>About</a></li>
+            <li><Link to={'/'}>Home</Link></li>
+            <li><Link to={'/course'}>Courses</Link></li>
+            <li><Link to={'/contact'}>Contact</Link></li>
+            <li><Link to={'/about'}>About</Link></li>
         </>
     )
     return (
         <>
-            <div className='container mx-auto md:px-20 px-2 max-w-screen-2xl shadow-md bg-white '>
-                <div className="navbar text-black flex justify-between items-center  ">
+            <div className={` max-w-screen-2xl container mx-auto md:px-20 px-4 dark:bg-slate-800 dark:text-white fixed top-0 left-0 right-0 z-50 ${
+          sticky
+            ? "sticky-navbar shadow-md bg-base-200 dark:bg-slate-600 dark:text-white duration-300 transition-all ease-in-out"
+            : ""
+        }`}>
+                <div className="navbar  flex justify-between items-center  ">
                     <div className="navbar-start">
                         <div className="dropdown">
                             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -23,7 +42,7 @@ function Navbar() {
                                 {navitems}
                             </ul>
                         </div>
-                        <a className=" text-2xl cursor-pointer font-bold">BookStore</a>
+                        <Link to={'/'} className=" text-2xl cursor-pointer font-bold">BookStore</Link>
                     </div>
                     <div className="navbar-end hidden  lg:flex">
                         <ul className="menu menu-horizontal px-1">
@@ -31,7 +50,7 @@ function Navbar() {
                         </ul>
                     </div>
                     <div className="searchbar hidden md:block px-3  ">
-                        <label className="input border-2 rounded-md border-gray-100 px-4 py-2 bg-transparent  flex items-center gap-2">
+                        <label className="input border rounded-md border-gray-100/25 px-4 py-2 bg-transparent  flex items-center gap-2">
                             <input type="text" className="grow outline-none" placeholder="Search" />
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" className="w-4 h-4 opacity-70"><path fillRule="evenodd" d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z" clipRule="evenodd" /></svg>
                         </label>
